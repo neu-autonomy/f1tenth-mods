@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  ros:
+    build: .
+    container_name: ros_humble
+    network_mode: host   # useful for ROS networking
+    privileged: true     # access to devices
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      # Share X11 socket so GUI apps work
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+
+      # Mount your entire home directory (change to "/" for full system access)
+      - ~:/root
+      - ~/.ssh:/root/.ssh:ro
+
+    stdin_open: true    # keep STDIN open
+    tty: true           # allocate a TTY
+    command: bash       # default command
