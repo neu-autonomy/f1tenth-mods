@@ -42,7 +42,7 @@ class KeyToAckermann(Node):
 
         self.get_logger().info("KeyToAckermann node initialized with velocity scaling.")
 
-        self.timeout = 0.05
+        self.timeout = 0.3
         self.last_valid_time = time.time()
         self.last_valid_x = 0.0
         self.last_valid_z = 0.0
@@ -67,7 +67,7 @@ class KeyToAckermann(Node):
         # NOTE(austin): invert the speed so that we don't have to swap motor wires
         scaled_speed = -1 * self.linear_scaler.scale(x)
         # NOTE(austin): the servo center is offset, we skew it manually
-        skew = - 0.05
+        skew = - 0.01
         scaled_steering = skew + self.angular_scaler.scale(z) * 0.25
 
         ackermann_msg = AckermannDriveStamped()
