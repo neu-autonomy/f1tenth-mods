@@ -64,8 +64,8 @@ class KeyToAckermann(Node):
             self.last_valid_x = x
             self.last_valid_z = z
 
-        # NOTE(austin): invert the speed so that we don't have to swap motor wires
-        scaled_speed = -1 * self.linear_scaler.scale(x)
+        # NOTE(austin): invert if controls are opposite
+        scaled_speed = 1 * self.linear_scaler.scale(x)
         # NOTE(austin): the servo center is offset, we skew it manually
         skew = - 0.005
         scaled_steering = skew + self.angular_scaler.scale(z) * 0.25
